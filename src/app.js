@@ -13,6 +13,6 @@ app.get('/', (req, res) => {
 });
 
 app.use('/cities', citiesRoutes);
-app.use('properties', propertiesRoutes);
+app.use('/properties', propertiesRoutes);
 
 module.exports = app;
