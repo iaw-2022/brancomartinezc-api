@@ -33,6 +33,18 @@ const getProperties = async (req, res) => {
         queryString = queryString.concat(sale_rentString);
     }
 
+    if(city_id!=="*"){
+        let city_idString;
+        if(more_parameters){
+            city_idString = 'AND city_id = :city_id ';
+        }else{
+            city_idString = 'WHERE city_id = :city_id ';
+            more_parameters = true;
+        }
+        parameters["city_id"] = city_id;
+        queryString = queryString.concat(city_idString);
+    }
+
     if(min_area!=="*"){
         let min_areaString;
         if(more_parameters){
@@ -141,18 +153,6 @@ const getProperties = async (req, res) => {
         queryString = queryString.concat(min_bathsString);
     }
 
-    if(city_id!=="*"){
-        let city_idString;
-        if(more_parameters){
-            city_idString = 'AND city_id = :city_id ';
-        }else{
-            city_idString = 'WHERE city_id = :city_id ';
-            more_parameters = true;
-        }
-        parameters["city_id"] = city_id;
-        queryString = queryString.concat(city_idString);
-    }
-
     //console.log(named(queryString)(parameters));
     const response = await db.query(named(queryString)(parameters));
     res.status(200).json(response.rows);
@@ -173,9 +173,15 @@ const getPropertiesByCountry = async (req, res) => {
     res.status(200).json(response.rows);
 };
 
+const getPropertyPhotos = async (req, res) => {
+    const response = await db.query('SELECT path FROM photos WHERE property_id = $1',[req.params.id]);
+    res.status(200).json(response.rows);
+};
+
 module.exports = {
     getProperties,
     getPropertyById,
     getPropertiesByCity,
     getPropertiesByCountry,
+    getPropertyPhotos
 }
