@@ -2,16 +2,22 @@ const db = require('../database');
 const named = require('yesql').pg
 
 const getProperties = async (req, res) => {
-    const { type, sale_rent, min_area, max_area, min_price, max_price, min_beds, max_beds, min_rooms, max_rooms, min_baths } = req.body;
+    const { type, sale_rent, min_area, max_area, min_price, max_price, 
+        min_beds, max_beds, min_rooms, max_rooms, min_baths, city_id } = req.body;
 
     let queryString = 'SELECT * FROM properties ';
     let parameters = {}
     let more_parameters = false;
 
     if(type!=="*"){
-        let typeString = 'WHERE type = :type ';
+        let typeString;
+        if(more_parameters){
+            typeString = 'AND type = :type ';
+        }else{
+            typeString = 'WHERE type = :type ';
+            more_parameters = true;
+        }
         parameters["type"] = type;
-        more_parameters = true;
         queryString = queryString.concat(typeString);
     }
 
@@ -135,8 +141,19 @@ const getProperties = async (req, res) => {
         queryString = queryString.concat(min_bathsString);
     }
 
+    if(city_id!=="*"){
+        let city_idString;
+        if(more_parameters){
+            city_idString = 'AND city_id = :city_id ';
+        }else{
+            city_idString = 'WHERE city_id = :city_id ';
+            more_parameters = true;
+        }
+        parameters["city_id"] = city_id;
+        queryString = queryString.concat(city_idString);
+    }
 
-    console.log(named(queryString)(parameters));
+    //console.log(named(queryString)(parameters));
     const response = await db.query(named(queryString)(parameters));
     res.status(200).json(response.rows);
 };
