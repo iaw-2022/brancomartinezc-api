@@ -1,7 +1,143 @@
 const db = require('../database');
+const named = require('yesql').pg
 
 const getProperties = async (req, res) => {
-    const response = await db.query('SELECT * FROM properties');
+    const { type, sale_rent, min_area, max_area, min_price, max_price, min_beds, max_beds, min_rooms, max_rooms, min_baths } = req.body;
+
+    let queryString = 'SELECT * FROM properties ';
+    let parameters = {}
+    let more_parameters = false;
+
+    if(type!=="*"){
+        let typeString = 'WHERE type = :type ';
+        parameters["type"] = type;
+        more_parameters = true;
+        queryString = queryString.concat(typeString);
+    }
+
+    if(sale_rent!=="*"){
+        let sale_rentString;
+        if(more_parameters){
+            sale_rentString = 'AND sale_rent = :sale_rent ';
+        }else{
+            sale_rentString = 'WHERE sale_rent = :sale_rent ';
+            more_parameters = true;
+        }
+        parameters["sale_rent"] = sale_rent;
+        queryString = queryString.concat(sale_rentString);
+    }
+
+    if(min_area!=="*"){
+        let min_areaString;
+        if(more_parameters){
+            min_areaString = 'AND area >= :min_area ';
+        }else{
+            min_priceString = 'WHERE area >= :min_area ';
+            more_parameters = true;
+        }
+        parameters["min_area"] = min_area;
+        queryString = queryString.concat(min_areaString);
+    }
+
+    if(max_area!=="*"){
+        let max_areaString;
+        if(more_parameters){
+            max_areaString = 'AND area <= :max_area ';
+        }else{
+            max_areaString = 'WHERE area <= :max_area ';
+            more_parameters = true;
+        }
+        parameters["max_area"] = max_area;
+        queryString = queryString.concat(max_areaString);
+    }
+
+    if(min_price!=="*"){
+        let min_priceString;
+        if(more_parameters){
+            min_priceString = 'AND price >= :min_price ';
+        }else{
+            min_priceString = 'WHERE price >= :min_price ';
+            more_parameters = true;
+        }
+        parameters["min_price"] = min_price;
+        queryString = queryString.concat(min_priceString);
+    }
+
+    if(max_price!=="*"){
+        let max_priceString;
+        if(more_parameters){
+            max_priceString = 'AND price <= :max_price ';
+        }else{
+            max_priceString = 'WHERE price <= :max_price ';
+            more_parameters = true;
+        }
+        parameters["max_price"] = max_price;
+        queryString = queryString.concat(max_priceString);
+    }
+
+    if(min_beds!=="*"){
+        let min_bedsString;
+        if(more_parameters){
+            min_bedsString = 'AND beds >= :min_beds ';
+        }else{
+            min_bedsString = 'WHERE beds >= :min_beds ';
+            more_parameters = true;
+        }
+        parameters["min_beds"] = min_beds;
+        queryString = queryString.concat(min_bedsString);
+    }
+
+    if(max_beds!=="*"){
+        let max_bedsString;
+        if(more_parameters){
+            max_bedsString = 'AND beds <= :max_beds ';
+        }else{
+            max_bedsString = 'WHERE beds <= :max_beds ';
+            more_parameters = true;
+        }
+        parameters["max_beds"] = max_beds;
+        queryString = queryString.concat(max_bedsString);
+    }
+
+    if(min_rooms!=="*"){
+        let min_roomsString;
+        if(more_parameters){
+            min_roomsString = 'AND rooms >= :min_rooms ';
+        }else{
+            min_roomsString = 'WHERE rooms >= :min_rooms ';
+            more_parameters = true;
+        }
+        parameters["min_rooms"] = min_rooms;
+        queryString = queryString.concat(min_roomsString);
+    }
+
+    if(max_rooms!=="*"){
+        let max_roomsString;
+        if(more_parameters){
+            max_roomsString = 'AND rooms <= :max_rooms ';
+        }else{
+            max_roomsString = 'WHERE rooms <= :max_rooms ';
+            more_parameters = true;
+        }
+        parameters["max_rooms"] = max_rooms;
+        queryString = queryString.concat(max_roomsString);
+    }
+
+    if(min_baths!=="*"){
+        let min_bathsString;
+        if(more_parameters){
+            min_bathsString = 'AND baths >= :min_baths ';
+        }else{
+            bathsString = 'WHERE baths >= :min_baths ';
+            more_parameters = true;
+        }
+        parameters["min_baths"] = min_baths;
+        queryString = queryString.concat(min_bathsString);
+    }
+
+
+    console.log(named(queryString)(parameters));
+    const response = await db.query(named(queryString)(parameters));
     res.status(200).json(response.rows);
 };
 
@@ -20,15 +156,9 @@ const getPropertiesByCountry = async (req, res) => {
     res.status(200).json(response.rows);
 };
 
-const getPropertiesByType = async (req, res) => {
-    const response = await db.query('SELECT * FROM properties WHERE type = $1',[req.params.type]);
-    res.status(200).json(response.rows);
-};
-
 module.exports = {
     getProperties,
     getPropertyById,
     getPropertiesByCity,
     getPropertiesByCountry,
-    getPropertiesByType
 }

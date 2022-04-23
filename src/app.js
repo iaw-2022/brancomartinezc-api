@@ -5,6 +5,9 @@ const propertiesRoutes = require('./routes/properties.routes');
 //app
 const app = express();
 
+//middlewares
+app.use(express.json())
+
 //routes
 app.get('/', (req, res) => {
     res.json({
