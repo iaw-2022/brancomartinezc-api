@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const citiesRoutes = require('./routes/cities.routes');
 const propertiesRoutes = require('./routes/properties.routes');
 const swaggerJsDoc = require('swagger-jsdoc');
@@ -10,7 +11,8 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 const app = express();
 
 //middlewares
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
 //routes
 app.get('/', (req, res) => {
