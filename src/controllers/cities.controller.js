@@ -14,7 +14,7 @@ const getCityById = async (req, res) => {
     const response = await db.query('SELECT * FROM cities WHERE id = $1',[req.params.id]);
 
     if(response.rows.length > 0){
-        res.status(200).json(response.rows);
+        res.status(200).json(response.rows[0]);
     }else{
         res.status(404).json({error: 'not found'});
     }
