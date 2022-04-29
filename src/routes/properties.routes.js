@@ -42,6 +42,8 @@ const propertiesCtrl = require('../controllers/properties.controller');
  *     responses:
  *       '200':
  *         description: Sucessful response
+ *       '400':
+ *         description: Invalid json parameters
  *       '404':
  *         description: Not found
  */
@@ -64,6 +66,8 @@ router.get('/', propertiesCtrl.getProperties);
  *     responses:
  *       '200':
  *         description: Sucessful response
+ *       '400':
+ *         description: Invalid parameter
  *       '404':
  *         description: Not found
  */
@@ -86,6 +90,8 @@ router.get('/:id', propertiesCtrl.getPropertyById);
  *     responses:
  *       '200':
  *         description: Sucessful response
+ *       '400':
+ *         description: Invalid parameter
  *       '404':
  *         description: Not found
  */
@@ -108,6 +114,8 @@ router.get('/city/:id', propertiesCtrl.getPropertiesByCity);
  *     responses:
  *       '200':
  *         description: Sucessful response
+ *       '400':
+ *         description: Invalid parameter
  *       '404':
  *         description: Not found
  */
@@ -130,6 +138,8 @@ router.get('/country/:id', propertiesCtrl.getPropertiesByCountry);
  *     responses:
  *       '200':
  *         description: Sucessful response
+ *       '400':
+ *         description: Invalid parameter
  *       '404':
  *         description: Not found
  */
