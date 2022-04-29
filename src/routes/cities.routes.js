@@ -12,6 +12,8 @@ const citiesCtrl = require('../controllers/cities.controller');
  *     responses:
  *       '200':
  *         description: Sucessful response
+ *       '404':
+ *         description: Not found
  */
 router.get('/', citiesCtrl.getCities);
 
@@ -32,6 +34,8 @@ router.get('/', citiesCtrl.getCities);
  *     responses:
  *       '200':
  *         description: Sucessful response
+ *       '404':
+ *         description: Not found
  */
 router.get('/:id', citiesCtrl.getCityById);
 
@@ -52,6 +56,8 @@ router.get('/:id', citiesCtrl.getCityById);
  *     responses:
  *       '200':
  *         description: Sucessful response
+ *       '404':
+ *         description: Not found
  */
 router.get('/country/:id', citiesCtrl.getCitiesByCountry);
 

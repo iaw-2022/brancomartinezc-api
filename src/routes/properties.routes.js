@@ -42,6 +42,8 @@ const propertiesCtrl = require('../controllers/properties.controller');
  *     responses:
  *       '200':
  *         description: Sucessful response
+ *       '404':
+ *         description: Not found
  */
 router.get('/', propertiesCtrl.getProperties);
 
@@ -62,6 +64,8 @@ router.get('/', propertiesCtrl.getProperties);
  *     responses:
  *       '200':
  *         description: Sucessful response
+ *       '404':
+ *         description: Not found
  */
 router.get('/:id', propertiesCtrl.getPropertyById);
 
@@ -82,6 +86,8 @@ router.get('/:id', propertiesCtrl.getPropertyById);
  *     responses:
  *       '200':
  *         description: Sucessful response
+ *       '404':
+ *         description: Not found
  */
 router.get('/city/:id', propertiesCtrl.getPropertiesByCity);
 
@@ -102,6 +108,8 @@ router.get('/city/:id', propertiesCtrl.getPropertiesByCity);
  *     responses:
  *       '200':
  *         description: Sucessful response
+ *       '404':
+ *         description: Not found
  */
 router.get('/country/:id', propertiesCtrl.getPropertiesByCountry);
 
@@ -122,6 +130,8 @@ router.get('/country/:id', propertiesCtrl.getPropertiesByCountry);
  *     responses:
  *       '200':
  *         description: Sucessful response
+ *       '404':
+ *         description: Not found
  */
 router.get('/photos/:id', propertiesCtrl.getPropertyPhotos);
 
