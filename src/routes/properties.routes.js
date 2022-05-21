@@ -47,7 +47,7 @@ const propertiesCtrl = require('../controllers/properties.controller');
  *       '404':
  *         description: Not found
  */
-router.get('/', propertiesCtrl.getProperties);
+router.post('/', propertiesCtrl.getProperties);
 
 /**
  * @swagger
