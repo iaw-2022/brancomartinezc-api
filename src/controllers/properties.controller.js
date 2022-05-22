@@ -17,7 +17,7 @@ const getProperties = async (req, res) => {
 
 const getPropertyById = async (req, res) => {
     if(!isNaN(req.params.id)){
-        const response = await db.query('SELECT * FROM properties WHERE id = $1',[req.params.id]);
+        const response = await db.query('SELECT properties.*, cities.name AS city_name, cities.state AS city_state, cities.country, cities.country_code FROM properties INNER JOIN cities ON properties.city_id=cities.id WHERE properties.id = $1',[req.params.id]);
     
         if(response.rows.length > 0){
             res.status(200).json(response.rows[0]);
