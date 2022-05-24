@@ -49,6 +49,8 @@ const propertiesCtrl = require('../controllers/properties.controller');
  */
 router.post('/', propertiesCtrl.getProperties);
 
+router.get('/latest', propertiesCtrl.getLatestProperties);
+
 /**
  * @swagger
  * /properties/{id}:
