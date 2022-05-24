@@ -16,14 +16,14 @@ const getProperties = async (req, res) => {
 };
 
 const getLatestProperties = async (req, res) => {
-    const response = await db.query('SELECT TOP 10 * FROM properties ORDER BY id = $1 DESC',[req.params.id]);
+    const response = await db.query('SELECT * FROM properties ORDER BY id DESC LIMIT 10');
     
     if(response.rows.length > 0){
         res.status(200).json(response.rows);
     }else{
         res.status(404).json({error: 'not found'});
     }
-}
+};
 
 const getPropertyById = async (req, res) => {
     if(!isNaN(req.params.id)){
