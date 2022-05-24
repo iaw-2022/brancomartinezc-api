@@ -16,7 +16,7 @@ const getProperties = async (req, res) => {
 };
 
 const getLatestProperties = async (req, res) => {
-    const response = await db.query('SELECT * FROM properties ORDER BY id DESC LIMIT 10');
+    const response = await db.query('SELECT * FROM properties ORDER BY id DESC LIMIT 3');
     
     if(response.rows.length > 0){
         res.status(200).json(response.rows);
