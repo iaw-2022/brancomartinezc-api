@@ -50,6 +50,7 @@ const getCitiesByCountry = async (req, res) => {
 
 module.exports = {
     getCities,
+    getCitiesCount,
     getCityById,
     getCitiesByCountry
 }

@@ -19,6 +19,8 @@ const citiesCtrl = require('../controllers/cities.controller');
  */
 router.get('/', citiesCtrl.getCities);
 
+router.get('/count', citiesCtrl.getCitiesCount);
+
 /**
  * @swagger
  * /cities/{id}:
