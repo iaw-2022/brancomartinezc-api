@@ -51,6 +51,8 @@ router.post('/', propertiesCtrl.getProperties);
 
 router.get('/latest', propertiesCtrl.getLatestProperties);
 
+router.get('/count', propertiesCtrl.getPropertiesCount);
+
 /**
  * @swagger
  * /properties/{id}:

@@ -25,6 +25,16 @@ const getLatestProperties = async (req, res) => {
     }
 };
 
+const getPropertiesCount = async (req, res) => {
+    const response = await db.query('SELECT COUNT(id) as count FROM properties');
+    
+    if(response.rows.length > 0){
+        res.status(200).json(response.rows);
+    }else{
+        res.status(404).json({error: 'not found'});
+    }
+};
+
 const getPropertyById = async (req, res) => {
     if(!isNaN(req.params.id)){
         const response = await db.query('SELECT properties.*, cities.name AS city_name, cities.state AS city_state, cities.country, cities.country_code FROM properties INNER JOIN cities ON properties.city_id=cities.id WHERE properties.id = $1',[req.params.id]);
@@ -83,6 +93,7 @@ const getPropertyPhotos = async (req, res) => {
 
 module.exports = {
     getProperties,
+    getPropertiesCount,
     getLatestProperties,
     getPropertyById,
     getPropertiesByCity,
