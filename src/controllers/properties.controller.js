@@ -98,5 +98,5 @@ module.exports = {
     getPropertyById,
     getPropertiesByCity,
     getPropertiesByCountry,
-    getPropertyPhotos
+    getPropertyPhotos,
 };
